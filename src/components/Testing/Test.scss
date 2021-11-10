@@ -16,7 +16,7 @@
             align-items: center;
         }
     }
-    .start-again {
+    .start-again, .back {
         display: flex;
         align-items: center;
         cursor: pointer;
@@ -29,5 +29,9 @@
     a {
         text-decoration: none;
         color: #4d4d4d;
+    }
+    textarea {
+        width: 600px;
+        height: 150px;
     }
 }
