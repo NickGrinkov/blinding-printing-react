@@ -1,0 +1,33 @@
+.test {
+    display: flex;
+    align-items: center;
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .speed, .accurancy {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 20px;
+        &__wrapper {
+            display: flex;
+            align-items: center;
+        }
+    }
+    .start-again {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
+    a {
+        text-decoration: none;
+        color: #4d4d4d;
+    }
+}
