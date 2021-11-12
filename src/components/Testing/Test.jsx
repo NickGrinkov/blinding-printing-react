@@ -1,12 +1,27 @@
 import React from 'react';
 import {useState, useEffect} from 'react';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
+import Timer from './Timer/Timer';
+import Result from './Result/Result';
+import UserInput from './UserInput/UserInput';
+import Speed from './Speed/Speed';
+import Accuracy from './Accuracy/Accuracy';
 import './Test.scss';
+
 
 function Test() {
 
     const [seconds, setSeconds] = useState(0)
     const [isActive, setIsActive] = useState(false)
+    const [text, setText] = useState('');
+    const [textLength, setTextLength] = useState(0);
+    const [accuracy, setAccuracy] = useState(0);
+    const [textarea, setTextarea] = useState('');
+    const [symbols, setSymbols] = useState(0);
+    const [errors, setErrors] = useState(0);
+    const [speed, setSpeed] = useState(0)
+
 
     const startTimer = () => {
         setIsActive(true)
@@ -25,39 +40,73 @@ function Test() {
         return () => clearInterval(interval)
     }, [isActive, seconds])
 
-    return (
+    const paragraphNumber = 1
+
+    const getText = () => {
+        axios.get(`https://baconipsum.com/api/?type=all-meat&paras=${paragraphNumber}&start-with-lorem=1`)
+        .then(({data}) => setText(data[0]))
+    }
+
+    useEffect(() => {
+        if(text === '') {
+            getText()
+        }
+    }, [text])
+
+    const checkCyrillic = (str) => {
+        return /[а-я]/i.test(str)
+    };
+
+    const newText = text.split('').map((symbol, i) => {
+        let color = ''
+        if(i < textarea.length) {
+            color = symbol === textarea[i] ? 'green' : 'red';
+        }
+        return (
+            <span key={`${symbol}_${i}`} className={color}>
+                {symbol}
+            </span>
+            )
+    })
+
+    const setSpeedInterval = (symbols, seconds) => {
+        setSpeed(Math.floor((symbols / (seconds / 60))))
+    }
+
+    useEffect(() => {
+        let speedInterval;
+        if(isActive) {
+            speedInterval = setInterval(() => setSpeedInterval(symbols, seconds), 1000)
+        } return () => clearInterval(speedInterval)
+    },[isActive, symbols, seconds])
+
+    const onChangeInput = (value) => {
+        if(checkCyrillic(value)) {
+            alert('Смените язык на клавиатуре')
+            clearTimer()
+        };
+        setTextarea(value)
+        setSymbols(value.split('').filter((e, i) => e === text[i]).length)
+        setErrors(value.split('').filter((e, i) => e !== text[i]).length)
+        setTextLength(newText.length)
+        setAccuracy(((textLength - errors) / textLength * 100).toFixed(1))
+        setSpeedInterval(symbols, seconds)
+    };
+        return (
         <div className="test">
             <div>
             <h2>Тест на скорость печати</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Illo, repellat quis! Optio vitae nihil eveniet expedita rem, saepe voluptatibus eos.  
-                </p>
-                <textarea onBlur={() => clearTimer()} onFocus={() => startTimer()}></textarea>
+                <p className="test__text">{newText}</p>
+                    {
+                        newText.length === symbols && errors < 1 && textarea.length !== 0
+                        ? <Result/>
+                        : <UserInput onChange={onChangeInput} startTimer={startTimer} clearTimer={clearTimer} textarea={textarea}/>   
+                    }   
             </div>
             <div className="test__wrapper">
-                <div className="timer">
-                    <div className="speed__wrapper">
-                        <h3>Таймер</h3>
-                        <span>{seconds}</span><span>сек.</span>
-                    </div>
-                </div>
-                <div className="speed">
-                    <div className="speed__wrapper">
-                        <img src="http://cdn.onlinewebfonts.com/svg/download_536753.png" alt="" />
-                        <p>Скорость</p>
-                    </div>
-                    <div>
-                        <p>0 ЗН/МИН</p>
-                    </div>
-                </div>
-                <div className="accurancy">
-                    <div className="accurancy__wrapper">
-                        <img src="https://www.pngjoy.com/pngm/784/20102559_bullseye-icon-accuracy-icon-png-download.png" alt="" />
-                        <p>Точность</p>
-                    </div>
-                    <p>100%</p>
-                </div>
+                <Timer seconds={seconds}/>
+                <Speed speed={speed}/>
+                <Accuracy accuracy={accuracy}/>
                 <Link to="/">
                     <div className="back">
                         <img src="https://www.clipartmax.com/png/middle/423-4237996_return-svg-png-icon-free-download-onlinewebfonts-return-back-icon.png" alt="" />
@@ -66,7 +115,7 @@ function Test() {
                 </Link>
                 <div className="start-again">
                     <img src="https://www.clipartmax.com/png/middle/423-4237996_return-svg-png-icon-free-download-onlinewebfonts-return-back-icon.png" alt="" />
-                    <a href="#">Заново</a>
+                    <button>Заново</button>
                 </div>
             </div>
         </div>
