@@ -11,7 +11,6 @@ import './Test.scss';
 
 
 function Test() {
-
     const [seconds, setSeconds] = useState(0)
     const [isActive, setIsActive] = useState(false)
     const [text, setText] = useState('');
@@ -29,16 +28,17 @@ function Test() {
 
     const clearTimer = () => {
         setIsActive(false)
-        setSeconds(0)
     }
     
     useEffect(() => {
         let interval;
-        if(isActive) {
+        if(checkCorrectTest()) {
+            setSeconds(seconds)
+        } else {
             interval = setInterval(() => setSeconds(seconds => seconds + 1), 1000)
         }
         return () => clearInterval(interval)
-    }, [isActive, seconds])
+    }, [seconds])
 
     const paragraphNumber = 1
 
@@ -57,6 +57,10 @@ function Test() {
         return /[а-я]/i.test(str)
     };
 
+    const checkCorrectTest = () => {
+        return newText.length === symbols && errors < 1 && textarea.length !== 0 
+    }
+
     const newText = text.split('').map((symbol, i) => {
         let color = ''
         if(i < textarea.length) {
@@ -73,37 +77,43 @@ function Test() {
         setSpeed(Math.floor((symbols / (seconds / 60))))
     }
 
+    
     useEffect(() => {
         let speedInterval;
-        if(isActive) {
+        if(checkCorrectTest()) {
+            setSpeed(speed)
+        } else {
             speedInterval = setInterval(() => setSpeedInterval(symbols, seconds), 1000)
         } return () => clearInterval(speedInterval)
-    },[isActive, symbols, seconds])
+    },[symbols, seconds])
 
     const onChangeInput = (value) => {
         if(checkCyrillic(value)) {
             alert('Смените язык на клавиатуре')
             clearTimer()
-        };
-        setTextarea(value)
-        setSymbols(value.split('').filter((e, i) => e === text[i]).length)
-        setErrors(value.split('').filter((e, i) => e !== text[i]).length)
-        setTextLength(newText.length)
-        setAccuracy(((textLength - errors) / textLength * 100).toFixed(1))
-        setSpeedInterval(symbols, seconds)
+        } else {
+            setTextarea(value)
+            setSymbols(value.split('').filter((e, i) => e === text[i]).length)
+            setErrors(value.split('').filter((e, i) => e !== text[i]).length)
+            setTextLength(newText.length)
+            setAccuracy(((textLength - errors) / textLength * 100).toFixed(1))
+            setSpeedInterval(symbols, seconds)
+        }
     };
         return (
         <div className="test">
-            <div>
-            <h2>Тест на скорость печати</h2>
-                <p className="test__text">{newText}</p>
+            <div className="test__text">
+                <h2>Тест на скорость печати</h2>
                     {
-                        newText.length === symbols && errors < 1 && textarea.length !== 0
+                        checkCorrectTest()
                         ? <Result/>
-                        : <UserInput onChange={onChangeInput} startTimer={startTimer} clearTimer={clearTimer} textarea={textarea}/>   
-                    }   
+                        : <>
+                        <p>{newText}</p>
+                          <UserInput onChange={onChangeInput} startTimer={startTimer} clearTimer={clearTimer} textarea={textarea}/>
+                          </>
+                    }         
             </div>
-            <div className="test__wrapper">
+            <div className="test__menu">
                 <Timer seconds={seconds}/>
                 <Speed speed={speed}/>
                 <Accuracy accuracy={accuracy}/>

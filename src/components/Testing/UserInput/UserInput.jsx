@@ -3,7 +3,7 @@ import React from 'react'
 function UserInput({textarea, onChange, clearTimer, startTimer}) {
     return (
         <>
-            <textarea 
+            <textarea
                 value={textarea} 
                 onChange={(e) => onChange(e.target.value)}
                 onBlur={() => clearTimer()} 
