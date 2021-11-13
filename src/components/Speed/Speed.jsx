@@ -7,9 +7,9 @@ function Speed({speed}) {
       <div className="speed__wrapper">
         <img
           src="http://cdn.onlinewebfonts.com/svg/download_536753.png"
-          alt=""
+          alt="Speed"
         />
-        <p>Скорость</p>
+        <h4>Скорость</h4>
       </div>
       <div>
         <p>

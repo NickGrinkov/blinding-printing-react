@@ -1,0 +1,53 @@
+.test {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 30px;
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 250px;
+        img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+    }
+    &__text {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 900px;
+    }
+    .start-again, .back {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    .back {
+        margin-bottom: 20px;
+    }
+    .green {
+        background-color: green;
+    }
+    .red {
+        background-color: red;
+    }
+    a {
+        text-decoration: none;
+        color: #4d4d4d;
+    }
+    textarea {
+        width: 900px;
+        height: 150px;
+    }
+    h2 {
+        margin-top: 0;
+    }
+    h4 {
+        margin-right: 10px;
+    }
+}

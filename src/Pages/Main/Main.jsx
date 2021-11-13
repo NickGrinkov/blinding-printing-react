@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Result from '../Result/Result'
+import Test from '../Test/Test'
 import './Main.scss';
 import logo from '../../assets/blind-printing.jpg';
 

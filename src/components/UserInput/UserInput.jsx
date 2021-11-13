@@ -6,7 +6,6 @@ function UserInput({textarea, onChange, clearTimer, startTimer}) {
             <textarea
                 value={textarea} 
                 onChange={(e) => onChange(e.target.value)}
-                onBlur={() => clearTimer()} 
                 onFocus={() => startTimer()}>
             </textarea>
         </>
