@@ -15,7 +15,7 @@ function Main() {
         <div className="main">
             <img src={logo} alt="logo"/>
             <h1>Приготовьтесь печатать</h1>
-            <button onClick={() => getStart()} className="main__button">Начать печатать</button>
+            <button onClick={() => getStart()}>Начать печатать</button>
         </div>
     )
 }

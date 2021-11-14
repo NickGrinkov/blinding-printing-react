@@ -5,7 +5,7 @@ import Accuracy from '../../components/Accuracy/Accuracy';
 import StartAgain from '../../components/StartAgain/StartAgain';
 import './Result.scss'
 
-function Result({seconds, accuracy, speed}) {
+function Result({seconds, accuracy, speed, backToMain}) {
     
     return (
             <div className="result">
@@ -15,7 +15,7 @@ function Result({seconds, accuracy, speed}) {
                 <Timer seconds={seconds}/>
                 <Speed speed={speed}/>
                 <Accuracy accuracy={accuracy}/>
-                <StartAgain/>
+                <StartAgain backToMain={backToMain}/>
             </div>
         </div>  
     )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function UserInput({textarea, onChange, clearTimer, startTimer}) {
+function UserInput({textarea, onChange, startTimer}) {
     return (
         <>
             <textarea
@@ -12,4 +12,4 @@ function UserInput({textarea, onChange, clearTimer, startTimer}) {
     )
 }
 
-export default UserInput
+export default UserInput;

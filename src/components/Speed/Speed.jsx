@@ -1,19 +1,21 @@
 import React from "react";
 import "./Speed.scss";
+import speedLogo from '../../assets/speed.svg'
 
 function Speed({speed}) {
   return (
     <div className="speed">
       <div className="speed__wrapper">
         <img
-          src="http://cdn.onlinewebfonts.com/svg/download_536753.png"
+          className="svg"
+          src={speedLogo}
           alt="Speed"
         />
         <h4>Скорость</h4>
       </div>
       <div>
         <p>
-          <span>{speed}</span>ЗН/МИН
+          <span>{speed}</span><span>зн/мин</span> 
         </p>
       </div>
     </div>

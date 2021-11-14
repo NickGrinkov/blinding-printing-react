@@ -10,16 +10,20 @@
         align-items: flex-start;
         justify-content: center;
         width: 250px;
-        img {
+        .svg {
             width: 30px;
             height: 30px;
             margin-right: 10px;
         }
+        span {
+            margin-right: 3px;
+        }
     }
     &__text {
+        position: relative;
         display: flex;
-        justify-content: center;
         flex-direction: column;
+        align-items: flex-start;
         width: 900px;
     }
     .start-again, .back {
@@ -35,6 +39,10 @@
     }
     .red {
         background-color: red;
+    }
+    button {
+        margin-top: 10px;
+        margin-left: 700px;
     }
     a {
         text-decoration: none;

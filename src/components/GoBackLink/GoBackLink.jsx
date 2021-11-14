@@ -1,13 +1,15 @@
 import React from "react";
+import backLogo from '../../assets/back.svg'
 
 function GoBackLink({goBack}) {
   return (
         <div onClick={() => goBack()} className="back">
           <img
-            src="https://www.clipartmax.com/png/middle/423-4237996_return-svg-png-icon-free-download-onlinewebfonts-return-back-icon.png"
+            className="svg"
+            src={backLogo}
             alt="go-back"
           />
-          <p>Вернуться назад</p>
+          <a href="#">Вернуться назад</a>
         </div>
   );
 }

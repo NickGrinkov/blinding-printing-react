@@ -1,14 +1,18 @@
 import React from "react";
-import './StartAgain.scss'
+import { useLocation } from "react-router";
+import './StartAgain.scss';
+import reloadLogo from '../../assets/reload.svg'
 
-function StartAgain({refreshPage}) {
+function StartAgain({backToMain, reloadPage}) {
+  const location = useLocation()
   return (
-    <div onClick={() => refreshPage()} className="start-again">
+    <div onClick={location.pathname === '/test' ? () => reloadPage() : () => backToMain()} className="start-again">
       <img
-        src="https://www.clipartmax.com/png/middle/423-4237996_return-svg-png-icon-free-download-onlinewebfonts-return-back-icon.png"
+        className="svg"
+        src={reloadLogo}
         alt="start-again"
       />
-      <button>Попробовать снова</button>
+      <a href="#">{location.pathname === '/test' ? 'Попробовать снова' : 'Вернуться на главную'} </a>
     </div>
   );
 }
