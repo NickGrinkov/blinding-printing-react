@@ -18,7 +18,7 @@ function Test({
   textarea,
   goBack,
   reloadPage,
-  startTimer
+  startTimer,
 }) {
   const navigate = useNavigate();
   const finishTest = () => {

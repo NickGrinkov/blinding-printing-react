@@ -1,16 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import Result from '../Result/Result'
-import Test from '../Test/Test'
 import './Main.scss';
 import logo from '../../assets/blind-printing.jpg';
 
-function Main() {
+function Main({reloadPage}) {
     const navigate = useNavigate()
 
     const getStart = () => {
         navigate('/test')
+        reloadPage()
     }
+    
     return (
         <div className="main">
             <img src={logo} alt="logo"/>

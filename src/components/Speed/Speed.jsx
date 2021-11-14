@@ -1,8 +1,10 @@
 import React from "react";
 import "./Speed.scss";
-import speedLogo from '../../assets/speed.svg'
+import speedLogo from '../../assets/speed.svg';
+import { useLocation } from "react-router";
 
 function Speed({speed}) {
+  const location = useLocation()
   return (
     <div className="speed">
       <div className="speed__wrapper">
@@ -11,7 +13,7 @@ function Speed({speed}) {
           src={speedLogo}
           alt="Speed"
         />
-        <h4>Скорость</h4>
+        <h4>{location.pathname === '/result' ? '' : 'Скорость' }</h4>
       </div>
       <div>
         <p>

@@ -13,7 +13,7 @@ function App() {
   const [isActive, setIsActive] = useState(false)
   const [text, setText] = useState("");
   const [textLength, setTextLength] = useState(0);
-  const [accuracy, setAccuracy] = useState(0);
+  const [accuracy, setAccuracy] = useState(100);
   const [textarea, setTextarea] = useState("");
   const [symbols, setSymbols] = useState(0);
   const [errors, setErrors] = useState(0);
@@ -100,6 +100,7 @@ function App() {
   const backToMain = () => {
     navigate('/')
   }
+
   const onChangeInput = (value) => {
     if (checkCyrillic(value)) {
       alert("Смените язык на клавиатуре");
@@ -109,7 +110,7 @@ function App() {
       setSymbols(value.split("").filter((e, i) => e === text[i]).length);
       setErrors(value.split("").filter((e, i) => e !== text[i]).length);
       setTextLength(newText.length);
-      setAccuracy((((textLength - errors) / textLength) * 100).toFixed(1));
+      setAccuracy((((textLength - errors) / textLength) * 100).toFixed(1))
       setSpeedInterval(symbols, seconds);
     }
   };
@@ -117,7 +118,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Main />}></Route>
+        <Route path="/" element={<Main reloadPage={reloadPage}/>}></Route>
         <Route path="/test/"element={<Test
               seconds={seconds}
               accuracy={accuracy}
